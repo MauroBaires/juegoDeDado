@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class Juego {
+    private Jugador jugador1;
+    private Jugador jugador2;
+    private Dado dado;
+
+    public Juego(String nombreJugador1, String nombreJugador2) {
+        jugador1 = new Jugador(nombreJugador1);
+        jugador2 = new Jugador(nombreJugador2);
+        dado = new Dado();
+    }
+
+    public void jugar() {
+        Scanner scanner = new Scanner(System.in);
+        int maxTiradas = 3;
+
+        for (int i = 0; i < maxTiradas; i++) {
+            System.out.println("\nTirada " + (i + 1));
+            realizarTirada(jugador1, i, scanner);
+            realizarTirada(jugador2, i, scanner);
+        }
+
+        mostrarResultados();
+    }
+
+    private void realizarTirada(Jugador jugador, int index, Scanner scanner) {
+        System.out.println("\n" + jugador.getNombre() + ", presiona Enter para tirar los dados.");
+        scanner.nextLine();  // Espera a que el jugador presione Enter
+
+        int dado1 = dado.tirar();
+        int dado2 = dado.tirar();
+        int suma = dado1 + dado2;
+        jugador.agregarTirada(suma, index);
+
+        System.out.println("Tirada " + (index + 1) + ": " + dado1 + " y " + dado2 + " suman " + suma);
+    }
+
+    private void mostrarResultados() {
+        System.out.println("\nResultados finales:");
+        System.out.println(jugador1.getNombre() + " - Puntos: " + jugador1.getTotalPuntos());
+        System.out.println(jugador2.getNombre() + " - Puntos: " + jugador2.getTotalPuntos());
+
+        if (jugador1.getTotalPuntos() > jugador2.getTotalPuntos()) {
+            System.out.println("\nEl ganador es " + jugador1.getNombre() + "!");
+        } else if (jugador2.getTotalPuntos() > jugador1.getTotalPuntos()) {
+            System.out.println("\nEl ganador es " + jugador2.getNombre() + "!");
+        } else {
+            System.out.println("\n¡Es un empate!");
+        }
+    }
+}

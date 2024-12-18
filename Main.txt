@@ -1,0 +1,20 @@
+import java.util.Scanner;
+
+public class Main {
+  public static void main(String[] args) {
+    
+	Scanner scanner = new Scanner(System.in);
+    
+    System.out.println("Ingresa el nombre del primer jugador: "); 
+    
+    	String nombreJugador1 = scanner.nextLine();
+    
+    System.out.println("Ingresa el nombre del segundo jugador: "); 
+    
+    	String nombreJugador2 = scanner.nextLine();
+    
+    Juego juego = new Juego(nombreJugador1, nombreJugador2);
+    juego.jugar();
+    
+  }
+}
